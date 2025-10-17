@@ -16,7 +16,6 @@ function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={Welcome} />
       <Route path={"/welcome"} component={Welcome} />
       <Route path={"/pos"} component={POS} />
       <Route path={"/erp"} component={ERPDashboard} />
