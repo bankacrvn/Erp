@@ -1,10 +1,11 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch, Redirect } from "wouter";
+import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 import Welcome from "./pages/Welcome";
 import POS from "./pages/POS";
 import ERPDashboard from "./pages/erp/Dashboard";
@@ -12,34 +13,35 @@ import Inventory from "./pages/erp/Inventory";
 import UserManagement from "./pages/erp/UserManagement";
 
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      {/* เมื่อเข้า / จะไปหน้า Welcome โดยอัตโนมัติ */}
-      <Route path="/" component={() => <Redirect to="/welcome" />} />
-
-      {/* หน้าหลัก */}
-      <Route path="/welcome" component={Welcome} />
-
-      {/* ระบบ POS */}
-      <Route path="/pos" component={POS} />
-
-      {/* ระบบ ERP */}
-      <Route path="/erp" component={ERPDashboard} />
-      <Route path="/erp/inventory" component={Inventory} />
+      <Route path={"/"} component={Login} />
+      <Route path={"/welcome"} component={Welcome} />
+      <Route path={"/pos"} component={POS} />
+      <Route path={"/erp"} component={ERPDashboard} />
+           <Route path="/erp/inventory" component={Inventory} />
       <Route path="/erp/users" component={UserManagement} />
-
-      {/* หน้าอื่น ๆ */}
-      <Route path="/home" component={Home} />
-      <Route path="/404" component={NotFound} />
+      <Route path={"/home"} component={Home} />
+      <Route path={"/404"} component={NotFound} />
+      {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
   );
 }
 
+// NOTE: About Theme
+// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
+//   to keep consistent foreground/background color across components
+// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
+
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider defaultTheme="dark">
+      <ThemeProvider
+        defaultTheme="dark"
+        // switchable
+      >
         <TooltipProvider>
           <Toaster />
           <Router />
