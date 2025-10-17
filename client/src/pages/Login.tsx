@@ -18,14 +18,13 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // ใช้ custom authentication logic ผ่าน Supabase
-      const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .eq('email', email)
-        .single();
+      // ใช้ Supabase Auth สำหรับ login
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-      if (error || !data) {
+      if (authError) {
         toast.error('อีเมลหรือรหัสผ่านไม่ถูกต้อง', {
           description: 'กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง'
         });
@@ -33,23 +32,30 @@ export default function Login() {
         return;
       }
 
-      // ตรวจสอบรหัสผ่าน (ในการใช้งานจริงควรใช้ bcrypt)
-      // สำหรับ demo นี้ เราจะใช้การเปรียบเทียบแบบง่าย
-      if (password === 'test') {
-        // บันทึก user session ใน localStorage
-        localStorage.setItem('user', JSON.stringify(data));
-        
-        toast.success('เข้าสู่ระบบสำเร็จ', {
-          description: `ยินดีต้อนรับ ${data.full_name}`
-        });
+      // ดึงข้อมูล user จาก public.users table
+      const { data: userData, error: userError } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', authData.user.id)
+        .single();
 
-        // Redirect to welcome screen
-        setLocation('/welcome');
-      } else {
-        toast.error('อีเมลหรือรหัสผ่านไม่ถูกต้อง', {
-          description: 'กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง'
+      if (userError || !userData) {
+        toast.error('ไม่พบข้อมูลผู้ใช้', {
+          description: 'กรุณาติดต่อผู้ดูแลระบบ'
         });
+        setLoading(false);
+        return;
       }
+
+      // บันทึก user session ใน localStorage
+      localStorage.setItem('user', JSON.stringify(userData));
+      
+      toast.success('เข้าสู่ระบบสำเร็จ', {
+        description: `ยินดีต้อนรับ ${userData.full_name}`
+      });
+
+      // Redirect to welcome screen
+      setLocation('/welcome');
     } catch (error) {
       console.error('Login error:', error);
       toast.error('เกิดข้อผิดพลาด', {

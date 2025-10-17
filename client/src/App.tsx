@@ -9,7 +9,8 @@ import Login from "./pages/Login";
 import Welcome from "./pages/Welcome";
 import POS from "./pages/POS";
 import ERPDashboard from "./pages/erp/Dashboard";
-import ERPInventory from "./pages/erp/Inventory";
+import Inventory from "./pages/erp/Inventory";
+import UserManagement from "./pages/erp/UserManagement";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -19,7 +20,8 @@ function Router() {
       <Route path={"/welcome"} component={Welcome} />
       <Route path={"/pos"} component={POS} />
       <Route path={"/erp"} component={ERPDashboard} />
-      <Route path={"/erp/inventory"} component={ERPInventory} />
+           <Route path="/erp/inventory" component={Inventory} />
+      <Route path="/erp/users" component={UserManagement} />
       <Route path={"/home"} component={Home} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
