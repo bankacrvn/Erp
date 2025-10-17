@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
+import RealtimeNotifications from "@/components/RealtimeNotifications";
 import { useLocation } from "wouter";
 
 interface ERPLayoutProps {
@@ -174,6 +175,9 @@ export default function ERPLayout({ children }: ERPLayoutProps) {
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
+        <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-3 flex justify-end">
+          <RealtimeNotifications />
+        </div>
         {children}
       </main>
     </div>

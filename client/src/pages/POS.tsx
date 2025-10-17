@@ -13,6 +13,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import RealtimeNotifications from "@/components/RealtimeNotifications";
 
 interface User {
   id: string;
@@ -211,6 +212,7 @@ export default function POS() {
             <p className="text-gray-400 mt-1">ระบบขายหน้าร้าน</p>
           </div>
           <div className="flex items-center gap-4">
+            <RealtimeNotifications />
             <Button
               variant="outline"
               size="sm"
