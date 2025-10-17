@@ -17,13 +17,14 @@ export default function Welcome() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const userData = localStorage.getItem('user');
-    if (!userData) {
-      setLocation('/');
-      return;
-    }
-    setUser(JSON.parse(userData));
-  }, [setLocation]);
+    // No login required, set default user
+    setUser({
+      id: 'guest',
+      email: 'guest@restaurant.com',
+      full_name: 'Guest User',
+      role: 'admin'
+    });
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -40,7 +41,7 @@ export default function Welcome() {
   };
 
   if (!user) {
-    return null;
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   }
 
   return (
