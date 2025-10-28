@@ -15,6 +15,7 @@ import Accounting from "./pages/erp/Accounting";
 import Reports from "./pages/erp/Reports";
 import AuditLog from "./pages/erp/AuditLog";
 import Settings from "./pages/erp/Settings";
+import DatabaseTest from "./pages/DatabaseTest";
 
 
 function Router() {
@@ -31,6 +32,7 @@ function Router() {
       <Route path="/erp/reports" component={Reports} />
       <Route path="/erp/audit" component={AuditLog} />
       <Route path="/erp/settings" component={Settings} />
+      <Route path="/test" component={DatabaseTest} />
 
       <Route path={"/home"} component={Home} />
       <Route path={"/404"} component={NotFound} />
@@ -50,7 +52,6 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider
         defaultTheme="light"
-        storageKey="restaurant-theme"        // switchable
       >
         <TooltipProvider>
           <Toaster />
