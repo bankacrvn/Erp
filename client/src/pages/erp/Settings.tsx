@@ -1,4 +1,3 @@
-import ERPLayout from "@/components/ERPLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -16,18 +15,28 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
-import { Settings as SettingsIcon, Database, Menu, Save, Plus, Pencil, Trash2, CheckCircle, XCircle } from "lucide-react";
+import { Settings as SettingsIcon, Database, Menu, Save, Plus, Pencil, Trash2, CheckCircle, XCircle, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
+import ERPLayout from "@/components/ERPLayout";
 
 export default function Settings() {
   const [settings, setSettings] = useState<any[]>([]);
   const [menuItems, setMenuItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [dbStatus, setDbStatus] = useState<'connected' | 'disconnected'>('connected');
+  const [supabaseUrl, setSupabaseUrl] = useState('https://mcjvxpfpnztyuejrbvng.supabase.co');
+  const [supabaseKey, setSupabaseKey] = useState('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1janZ4cGZwbnp0eXVlanJidm5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2MDU3NzksImV4cCI6MjA3NzE4MTc3OX0.iFWcI2_kDzf_UNXL0sCDph5wnura1crFxk9CKyb9r0E');
+  const [showKey, setShowKey] = useState(false);
+  const [isSavingSupabase, setIsSavingSupabase] = useState(false);
 
   useEffect(() => {
     loadData();
     checkDatabaseConnection();
+    // Load from localStorage
+    const savedUrl = localStorage.getItem('supabase_url');
+    const savedKey = localStorage.getItem('supabase_key');
+    if (savedUrl) setSupabaseUrl(savedUrl);
+    if (savedKey) setSupabaseKey(savedKey);
   }, []);
 
   const loadData = async () => {
@@ -70,6 +79,19 @@ export default function Settings() {
     } else {
       toast.success('บันทึกการตั้งค่าสำเร็จ');
       loadData();
+    }
+  };
+
+  const handleSaveSupabaseSettings = async () => {
+    setIsSavingSupabase(true);
+    try {
+      localStorage.setItem('supabase_url', supabaseUrl);
+      localStorage.setItem('supabase_key', supabaseKey);
+      toast.success('บันทึก Supabase credentials สำเร็จ');
+    } catch (err) {
+      toast.error('ไม่สามารถบันทึก credentials ได้');
+    } finally {
+      setIsSavingSupabase(false);
     }
   };
 
@@ -335,14 +357,57 @@ export default function Settings() {
                     )}
                   </div>
 
+                  {/* Supabase Integration Settings */}
+                  <div className="border-t pt-6">
+                    <h3 className="font-semibold mb-4">Supabase Integration</h3>
+                    <div className="space-y-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="supabase-url">Supabase URL</Label>
+                        <Input
+                          id="supabase-url"
+                          value={supabaseUrl}
+                          onChange={(e) => setSupabaseUrl(e.target.value)}
+                          placeholder="https://your-project.supabase.co"
+                        />
+                        <p className="text-xs text-gray-500">ตัวอย่าง: https://mcjvxpfpnztyuejrbvng.supabase.co</p>
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="supabase-key">Supabase Anon Key</Label>
+                        <div className="flex gap-2">
+                          <Input
+                            id="supabase-key"
+                            type={showKey ? "text" : "password"}
+                            value={supabaseKey}
+                            onChange={(e) => setSupabaseKey(e.target.value)}
+                            placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                          />
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={() => setShowKey(!showKey)}
+                          >
+                            {showKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                          </Button>
+                        </div>
+                        <p className="text-xs text-gray-500">ใช้ Anon Key จาก Supabase Dashboard</p>
+                      </div>
+                      <Button
+                        onClick={handleSaveSupabaseSettings}
+                        disabled={isSavingSupabase}
+                        className="w-full"
+                      >
+                        <Save className="w-4 h-4 mr-2" />
+                        {isSavingSupabase ? 'กำลังบันทึก...' : 'บันทึก Supabase Settings'}
+                      </Button>
+                    </div>
+                  </div>
+
                   {/* Database Info */}
-                  <div className="space-y-3">
+                  <div className="border-t pt-6 space-y-3">
+                    <h3 className="font-semibold">ข้อมูล Database</h3>
                     <div className="grid gap-2">
                       <Label>Database Host</Label>
-                      <Input
-                        value={settings.find(s => s.setting_key === 'database_host')?.setting_value || ''}
-                        disabled
-                      />
+                      <Input value={supabaseUrl} disabled />
                     </div>
                     <div className="grid gap-2">
                       <Label>Database Provider</Label>
@@ -355,7 +420,7 @@ export default function Settings() {
                   </div>
 
                   {/* Database Tables */}
-                  <div>
+                  <div className="border-t pt-6">
                     <h3 className="font-medium mb-3">ตารางในฐานข้อมูล</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                       {[
