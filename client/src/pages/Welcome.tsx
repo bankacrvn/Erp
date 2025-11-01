@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
+import { ShoppingCart, BarChart3, CreditCard } from 'lucide-react';
 
 interface User {
   id: string;
@@ -34,6 +35,10 @@ export default function Welcome() {
 
   const navigateToPOS = () => {
     setLocation('/pos');
+  };
+
+  const navigateToCashier = () => {
+    setLocation('/cashier');
   };
 
   const navigateToERP = () => {
@@ -86,14 +91,12 @@ export default function Welcome() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* POS System Card */}
           <Card className="group hover:shadow-2xl transition-all duration-300 border-2 hover:border-blue-500 cursor-pointer" onClick={navigateToPOS}>
             <CardHeader className="text-center pb-4">
               <div className="mx-auto w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                <svg className="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
+                <ShoppingCart className="w-14 h-14 text-white" />
               </div>
               <CardTitle className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                 POS System
@@ -105,12 +108,38 @@ export default function Welcome() {
             <CardContent className="text-center">
               <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2 mb-6">
                 <li>• จัดการออเดอร์และการขาย</li>
-                <li>• รับชำระเงินหลายรูปแบบ</li>
-                <li>• พิมพ์ใบเสร็จ</li>
-                <li>• จัดการกะการทำงาน</li>
+                <li>• เลือกสินค้าและหมวดหมู่</li>
+                <li>• ตะกร้าสินค้า</li>
+                <li>• รับชำระเงิน</li>
               </ul>
               <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold shadow-lg">
                 เข้าสู่ระบบ POS
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Cashier System Card */}
+          <Card className="group hover:shadow-2xl transition-all duration-300 border-2 hover:border-green-500 cursor-pointer" onClick={navigateToCashier}>
+            <CardHeader className="text-center pb-4">
+              <div className="mx-auto w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-xl">
+                <CreditCard className="w-14 h-14 text-white" />
+              </div>
+              <CardTitle className="text-2xl font-bold text-green-600 dark:text-green-400">
+                Cashier
+              </CardTitle>
+              <CardDescription className="text-base">
+                ระบบแคชเชียร์
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2 mb-6">
+                <li>• เปิด/ปิดกะการทำงาน</li>
+                <li>• ประมวลผลการชำระเงิน</li>
+                <li>• จัดการใบเสร็จ</li>
+                <li>• รายงานประจำวัน</li>
+              </ul>
+              <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold shadow-lg">
+                เข้าสู่ระบบแคชเชียร์
               </Button>
             </CardContent>
           </Card>
@@ -119,9 +148,7 @@ export default function Welcome() {
           <Card className="group hover:shadow-2xl transition-all duration-300 border-2 hover:border-purple-500 cursor-pointer" onClick={navigateToERP}>
             <CardHeader className="text-center pb-4">
               <div className="mx-auto w-24 h-24 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                <svg className="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
+                <BarChart3 className="w-14 h-14 text-white" />
               </div>
               <CardTitle className="text-2xl font-bold text-purple-600 dark:text-purple-400">
                 ERP Back Office

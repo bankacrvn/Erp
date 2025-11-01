@@ -5,35 +5,33 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
-
 import Welcome from "./pages/Welcome";
 import POS from "./pages/POS";
-import ERPDashboard from "./pages/erp/Dashboard";
+import Cashier from "./pages/Cashier";
+import DatabaseTest from "./pages/DatabaseTest";
+import Dashboard from "./pages/erp/Dashboard";
 import Inventory from "./pages/erp/Inventory";
 import HRM from "./pages/erp/HRM";
 import Accounting from "./pages/erp/Accounting";
 import Reports from "./pages/erp/Reports";
 import AuditLog from "./pages/erp/AuditLog";
 import Settings from "./pages/erp/Settings";
-import DatabaseTest from "./pages/DatabaseTest";
-
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Welcome} />
-      <Route path={"/welcome"} component={Welcome} />
       <Route path={"/pos"} component={POS} />
-      <Route path={"/erp"} component={ERPDashboard} />
-      <Route path="/erp/inventory" component={Inventory} />
-      <Route path="/erp/hrm" component={HRM} />
-      <Route path="/erp/accounting" component={Accounting} />
-      <Route path="/erp/reports" component={Reports} />
-      <Route path="/erp/audit" component={AuditLog} />
-      <Route path="/erp/settings" component={Settings} />
-      <Route path="/test" component={DatabaseTest} />
-
+      <Route path={"/cashier"} component={Cashier} />
+      <Route path={"/erp"} component={Dashboard} />
+      <Route path={"/erp/inventory"} component={Inventory} />
+      <Route path={"/erp/hrm"} component={HRM} />
+      <Route path={"/erp/accounting"} component={Accounting} />
+      <Route path={"/erp/reports"} component={Reports} />
+      <Route path={"/erp/audit"} component={AuditLog} />
+      <Route path={"/erp/settings"} component={Settings} />
+      <Route path={"/test"} component={DatabaseTest} />
       <Route path={"/home"} component={Home} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
@@ -63,3 +61,4 @@ function App() {
 }
 
 export default App;
+
