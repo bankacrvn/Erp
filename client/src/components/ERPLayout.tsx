@@ -47,7 +47,7 @@ export default function ERPLayout({ children }: ERPLayoutProps) {
         </svg>
       ),
       label: "Cashier",
-      path: "/erp/cashier",
+      path: "/cashier",
     },
     {
       icon: (
@@ -97,6 +97,11 @@ export default function ERPLayout({ children }: ERPLayoutProps) {
     },
   ];
 
+  // Remove duplicate Settings item
+  const uniqueMenuItems = menuItems.filter((item, index, self) => 
+    index === self.findIndex((t) => t.path === item.path)
+  );
+
   const handleLogout = () => {
     localStorage.removeItem('user');
     setLocation('/');
@@ -137,7 +142,7 @@ export default function ERPLayout({ children }: ERPLayoutProps) {
         {/* Menu */}
         <ScrollArea className="flex-1 py-4">
           <nav className="space-y-1 px-2">
-            {menuItems.map((item) => (
+            {uniqueMenuItems.map((item) => (
               <Button
                 key={item.path}
                 variant="ghost"
@@ -159,8 +164,20 @@ export default function ERPLayout({ children }: ERPLayoutProps) {
             variant="ghost"
             className={`w-full ${
               collapsed ? 'justify-center px-2' : 'justify-start px-4'
+            } h-12 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20`}
+            onClick={() => setLocation('/pos')}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            {!collapsed && <span className="ml-3">POS System</span>}
+          </Button>
+          <Button
+            variant="ghost"
+            className={`w-full ${
+              collapsed ? 'justify-center px-2' : 'justify-start px-4'
             } h-12 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700`}
-            onClick={() => setLocation('/welcome')}
+            onClick={() => setLocation('/')}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
