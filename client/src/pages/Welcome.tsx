@@ -34,7 +34,7 @@ export default function Welcome() {
   };
 
   const navigateToPOS = () => {
-    setLocation('/pos');
+    setLocation('/pos-full');
   };
 
   const navigateToCashier = () => {
@@ -113,7 +113,7 @@ export default function Welcome() {
                 <li>• รับชำระเงิน</li>
               </ul>
               <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold shadow-lg">
-                เข้าสู่ระบบ POS
+                เข้าสู่ระบบ POS (Full)
               </Button>
             </CardContent>
           </Card>

@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Welcome from "./pages/Welcome";
 import POS from "./pages/POS";
+import POSFull from "./pages/POSFull";
 import Cashier from "./pages/Cashier";
 import DatabaseTest from "./pages/DatabaseTest";
 import Dashboard from "./pages/erp/Dashboard";
@@ -22,7 +23,8 @@ function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Welcome} />
-      <Route path={"/pos"} component={POS} />
+       <Route path="/pos" component={POS} />
+      <Route path="/pos-full" component={POSFull} />
       <Route path={"/cashier"} component={Cashier} />
       <Route path={"/erp"} component={Dashboard} />
       <Route path={"/erp/inventory"} component={Inventory} />

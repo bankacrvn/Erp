@@ -1,6 +1,50 @@
 # Restaurant POS & ERP System - TODO
 
-## Phase 7: Cashier Page Features (กำลังดำเนินการ)
+## Phase 8: POS System Full Features (กำลังดำเนินการ)
+
+### POS Core Features
+- [x] Category Selection with Cards
+- [x] Product Display & Filtering
+- [x] Shopping Cart Management
+- [x] Item Quantity Control
+- [x] Price Calculation
+- [ ] Discount & Promo Support
+- [ ] Order Notes/Special Requests
+- [x] Order Summary Display
+
+### POS Advanced Features
+- [x] Table Selection (Restaurant Mode)
+- [x] Dine-in / Takeaway / Delivery Options
+- [x] Customer Information Input
+- [ ] Order History & Reorder
+- [ ] Quick Order Templates
+- [x] Product Search & Filter
+- [x] Stock Availability Check
+- [ ] Real-time Order Status
+
+### POS Payment Integration
+- [x] Payment Method Selection
+- [x] Cash Payment Handling
+- [x] Card Payment Processing
+- [x] QR Code Payment Integration
+- [x] Payment Confirmation
+- [x] Change Calculation
+- [ ] Receipt Generation
+- [ ] Payment History
+
+### POS Database Integration
+- [x] Fetch Categories from Supabase
+- [x] Fetch Products from Supabase
+- [x] Create Orders in Database
+- [x] Save Order Items
+- [ ] Update Stock Quantity
+- [ ] Realtime Order Updates
+- [ ] Order History Retrieval
+- [x] Payment Recording
+
+---
+
+## Phase 7: Cashier Page Features (✅ Completed)
 
 ### Cashier Page - Full Features
 - [x] Shift Management (เปิด/ปิดกะ, ตรวจสอบเงินสด)
@@ -41,6 +85,17 @@
 - [ ] Cash Count Verification - Optional
 - [ ] Refund Processing - Optional
 - [ ] Export Reports (PDF/Excel) - Optional
+
+## Progress Summary
+
+| Phase | Status | Completion |
+|-------|--------|----------|
+| Database & Infrastructure | ✅ Complete | 100% |
+| Core UI & Layout | ✅ Complete | 100% |
+| Deployment | ✅ Complete | 100% |
+| Cashier System | ✅ Complete | 100% |
+| Documentation | ✅ Complete | 100% |
+| **POS System Full Features** | 🔄 In Progress | 0% |
 
 ## Previous Completed Features
 - [x] Database Schema Design (18+ tables)
